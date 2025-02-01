@@ -79,9 +79,14 @@ html, body {
   border: 1px solid var(--light-grey);
   padding: 0.5rem;
   width: 100%;
-  flex-grow: 1;
+  height: 15rem;
   margin-bottom: 1rem;
   box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.data-inst-container p {
+  font-size: 0.8rem;
 }
 
 .data-inst-container h5 {
