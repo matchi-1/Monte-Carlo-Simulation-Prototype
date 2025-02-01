@@ -183,6 +183,10 @@ function App() {
                 </button>
               </div>
             </div>
+
+            <div className='simulations-body-container'>
+              
+            </div>
           </div>
         </div>
       </div>
