@@ -14,6 +14,32 @@ function App() {
   const [averagePredictedValue, setAveragePredictedValue] = useState(0);
   const [predictedValue, setPredictedValue] = useState([]);
   const [simulations, setSimulations] = useState([]);
+  const [isReadyToSimulate, setIsReadyToSimulate] = useState(false);
+  
+  const resetValueOccurrence = () => {
+    // Reset all the necessary states to their initial values
+    setValues([0]);
+    setOccurrences([0]);
+    setProbabilities([0]);
+    setCumulativeProbabilities([]);
+    setRniIntervals([]);
+    setPredictedValue([]);
+    setSimulations([]);
+    setAveragePredictedValue(0);
+    setUnitOfValue('customers');
+    setUnitOfOccurrence('days');
+  };
+  
+
+
+  useEffect(() => {
+    // Check if cumulativeProbabilities[0] is still 0 and set isReadyToSimulate accordingly
+    if (cumulativeProbabilities[0] === 0) {
+      setIsReadyToSimulate(false);
+    } else {
+      setIsReadyToSimulate(true);
+    }
+  }, [cumulativeProbabilities]);  // Runs whenever cumulativeProbabilities changes
 
   const handleRestart = () => {
     setSimulations([]);
@@ -218,6 +244,9 @@ function App() {
                       onKeyPress={(e) => !/[a-zA-Z\s]/.test(e.key) && e.preventDefault()}
                     />
                   </div>
+                  <div className="clr-btn" onClick={resetValueOccurrence}>
+                    <p>clear all</p>
+                  </div>
                 </div>
                 <div className="buttons-container">
                   <div className="row-button" id='add-row-btn' onClick={addRow}>
@@ -277,7 +306,10 @@ function App() {
           <div className="simulations-header-container">
             <p>Simulations</p>
             <div className="sim-res-buttons">
-              <button className="simulate-button" onClick={handleSimulate}>
+              <button 
+              className="simulate-button" 
+              onClick={handleSimulate}
+              disabled={!isReadyToSimulate}>
                 Simulate
               </button>
               <button className="restart-button" onClick={handleRestart}>

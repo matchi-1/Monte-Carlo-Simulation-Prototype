@@ -261,3 +261,21 @@ html, body {
   overflow-y: auto; 
 }
 
+.clr-btn{
+  background-color: white;
+  height: 1rem;
+  display: flex;
+  align-items: center;
+  padding: .25rem;
+  color: var(--text-dark-grey);
+  font-size: 0.8rem;
+  border: 1px solid var(--cont-outline-dark-grey);
+  border-radius: 5px;
+  margin-top: 1.5rem;
+  margin-left: 1rem;
+  cursor: pointer;
+}
+
+.clr-btn:hover{
+  background-color: rgb(236, 236, 236);
+}
