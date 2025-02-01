@@ -198,9 +198,8 @@ html, body {
 
 .hist-cat-input-unit-container{
   justify-content: space-between;
-  border: 1px solid red;
   box-sizing: border-box;
-  height: 4rem;
+  height: 5rem;
 }
 
 .input-label-text{
@@ -227,6 +226,10 @@ html, body {
   box-sizing: border-box;
   color: var(--text-dark-grey);
 }
+.input-field-text:focus{
+  outline: #3a3a3a;
+}
+
 
 .buttons-container{
   gap: 0.25rem;
@@ -272,7 +275,6 @@ html, body {
   padding-right: 1rem;
   padding-top: 1rem;
   height: 4rem;
-  border: 1px solid red;
   box-sizing: border-box;
 }
 .hist-cat-additional-data-container p, .hist-cat-additional-data-container h4{
@@ -293,41 +295,45 @@ html, body {
 /* Table Styling */
 .styled-table {
   width: 100%;
-  border-collapse: collapse;
-  background-color: white;
+  border-collapse: separate; /* Change from collapse to separate */
+  border-spacing: 0; /* Reset the general border-spacing */
+  background-color: var(--fill-light-grey);
   color: var(--text-dark-grey);
-  
-}
-
-.styled-table th{
-  padding: 0.5rem;
-  text-align: center;
-  font-size: 0.85rem;
-  border-spacing: 1rem;
-}
-.styled-table td{
-  font-size: 0.85rem;
-  border-spacing: 1rem;
 }
 
 .styled-table th {
+  padding: 0.5rem;
+  text-align: center;
+  font-size: 0.85rem;
   background-color: #ffffff;
   border-bottom: 2px solid var(--cont-outline-dark-grey);
   color: var(--text-dark-grey);
   font-weight: 400;
+  border: 0.25rem solid var(--fill-light-grey);
+}
+
+.styled-table td {
+  font-size: 0.85rem;
+  padding: 0.5rem;
+  text-align: center;
+  vertical-align: middle;
+  color: var(--text-dark-grey);
+  background-color: #ffffff;
+  border: 0.25rem solid var(--fill-light-grey);
 }
 
 .styled-table input[type="number"] {
   text-align: center;
   height: 100%;
   width: 100%;
-  border: 1px solid rgb(232, 232, 232);
-  font-size: 0.8rem;
-
+  border: none;
+  font-size: 0.8rem;  
+  box-sizing: border-box;
+  color: var(--text-dark-grey);
 }
 
 .styled-table td input[type="number"]:focus {
-  border-color: #c4c4c4;
+  border-color: #a7a7a7;
   outline: none;
 }
 
@@ -338,11 +344,6 @@ html, body {
 /* Hover Effects for Buttons or Interactions */
 .styled-table tbody tr input[type="number"]:hover {
   cursor: pointer;
-}
-
-.styled-table tbody td {
-  text-align: center;
-  vertical-align: middle;
 }
 
 .styled-table td input {
