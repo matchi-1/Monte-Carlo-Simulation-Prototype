@@ -185,4 +185,42 @@ html, body {
   height: 100%;
   border: 1px solid var(--cont-outline-dark-grey);
   background-color: var(--fill-light-grey);
+  padding:1rem;
+  
+  box-sizing: border-box;
+}
+
+/*input containers for hist cat*/
+
+.hist-cat-input-unit-container, .inputs-container{
+  display: flex;
+  flex-direction: row;
+}
+
+.hist-cat-input-unit-container{
+  justify-content: space-between;
+}
+
+.input-label-text{
+  color: var(--text-dark-grey);
+  margin-bottom: 0.2rem;
+}
+
+.input-label-container, .buttons-container{
+  display: flex;
+  flex-direction: column;
+} 
+
+.input-label-container{
+  width: 10rem;
+  margin-right: 1rem;
+}
+
+.input-field-text{
+  height: 1.75rem;
+  width: 100%;
+  border-radius: 0.3rem;
+  border: 1px solid var(--cont-outline-dark-grey);
+  padding: 0rem 0.5rem;
+  box-sizing: border-box;
 }

@@ -33,6 +33,7 @@ function App() {
         </div>
         <div className='monte-carlo-sim-container'>
           <div className='hist-cat-container'>
+
             <div className='cont-header-container'>
               <div
                 className={activeTab === 'historical' ? 'hist-cat-tab-active' : 'hist-cat-tab-inactive'}
@@ -47,10 +48,48 @@ function App() {
                 <p>Categorical Data</p>
               </div>
             </div>
-            <div className='hist-cat-body-container'>
-              <div className='hist-cat-input-unit-container'>
 
+            <div className='hist-cat-body-container'>
+              {/* Inputs Container */}
+              <div className='hist-cat-input-unit-container'>
+                <div className="inputs-container">
+                  <div className='input-label-container'>
+                    <label className="input-label-text">Unit of value:</label>
+                    <input 
+                      type="text" 
+                      placeholder="Ex. customers, cakes, etc." 
+                      className="input-field-text"
+                      onKeyPress={(e) => {
+                        // Allow only alphabets and spaces
+                        if (!/[a-zA-Z\s]/.test(e.key)) {
+                          e.preventDefault();
+                        }
+                      }}
+                    />
+                  </div>
+                  <div className='input-label-container'>
+                    <label className="input-label-text">Unit of occurrence:</label>
+                    <input 
+                      type="text" 
+                      placeholder="Ex. days, years" 
+                      className="input-field-text"
+                      onKeyPress={(e) => {
+                        // Allow only alphabets and spaces
+                        if (!/[a-zA-Z\s]/.test(e.key)) {
+                          e.preventDefault();
+                        }
+                      }}
+                    />
+                  </div>
+                </div>
+
+                {/* Buttons Container */}
+                <div className="buttons-container">
+                  <button className="button">Button 1</button>
+                  <button className="button">Button 2</button>
+                </div>
               </div>
+
               <div className='hist-cat-additional-data-container'>
 
               </div>
