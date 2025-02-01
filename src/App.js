@@ -1,11 +1,55 @@
 import './styles/App.css';
 import './styles/HistCat.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import HistoricalBodyContainer from './components/HistoricalBodyContainer'; 
 import CategoricalBodyContainer from './components/CategoricalBodyContainer';
 
 function App() {
-  const [activeTab, setActiveTab] = useState('historical'); // State for active tab
+  const [activeTab, setActiveTab] = useState('historical');
+  const [unitOfValue, setUnitOfValue] = useState('customers');
+  const [unitOfOccurrence, setUnitOfOccurrence] = useState('days');
+  const [values, setValues] = useState([0]);
+  const [occurrences, setOccurrences] = useState([0]);
+  const [probabilities, setProbabilities] = useState([0]);
+
+  const handleInputUnitofOccurrence = (e) => {
+    setUnitOfOccurrence(e.target.value);
+  };
+
+  const handleInputUnitofValue = (e) => {
+    setUnitOfValue(e.target.value);
+  };
+
+  const recalculateProbabilities = () => {
+    const totalOccurrences = occurrences.reduce((acc, occurrence) => acc + occurrence, 0);
+    const newProbabilities = totalOccurrences === 0
+      ? occurrences.map(() => 0)
+      : occurrences.map((occurrence) => occurrence / totalOccurrences);
+    setProbabilities(newProbabilities);
+  };
+
+  useEffect(() => {
+    recalculateProbabilities();
+  }, [values, occurrences]);
+
+  const addRow = () => {
+    setValues([...values, 0]);
+    setOccurrences([...occurrences, 0]);
+  };
+
+  const deleteRow = () => {
+    if (values.length > 1) {
+      setValues(values.slice(0, -1));
+      setOccurrences(occurrences.slice(0, -1));
+      setProbabilities(probabilities.slice(0, -1));
+    }
+  };
+
+  const handleInputChange = (index, event, type) => {
+    const newArray = type === 'value' ? [...values] : [...occurrences];
+    newArray[index] = Number(event.target.value);
+    type === 'value' ? setValues(newArray) : setOccurrences(newArray);
+  };
 
   return (
     <div className="app-container">
@@ -52,19 +96,65 @@ function App() {
               </div>
             </div>
 
-            {/* Use the HistoricalBodyContainer component */}
             {activeTab === 'historical' ? (
-              <HistoricalBodyContainer activeTab={activeTab} />
+              <HistoricalBodyContainer
+                activeTab={activeTab}
+                unitOfValue={unitOfValue}
+                unitOfOccurrence={unitOfOccurrence}
+                values={values}
+                occurrences={occurrences}
+                probabilities={probabilities}
+                handleInputUnitofValue={handleInputUnitofValue}
+                handleInputUnitofOccurrence={handleInputUnitofOccurrence}
+                handleInputChange={handleInputChange}
+                addRow={addRow}
+                deleteRow={deleteRow}
+              />
             ) : (
-              <CategoricalBodyContainer activeTab={activeTab} />
+              <CategoricalBodyContainer />
             )}
+
           </div>
           <div className='computations-container'>
+
             <div className='cont-header-container'>
               <p>Computations</p>
             </div>
-            <div className='computation-body-container'>
 
+            <div className='computation-body-container'>
+              <div className="hist-cat-table-container">
+                <table className="cat-hist-table">
+                  <thead>
+                    <tr>
+                      <th>Cumulative Probability {unitOfValue}</th>
+                      <th>RNI</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {values.map((value, index) => (
+                      <tr key={index}>
+                        <td>
+                          <input
+                            type="number"
+                            value={value}
+                            onChange={(e) => handleInputChange(index, e, 'value')}
+                            min="0"
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="number"
+                            value={occurrences[index]}
+                            onChange={(e) => handleInputChange(index, e, 'occurrence')}
+                            min="0"
+                          />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
           <div className='simulations-container'>

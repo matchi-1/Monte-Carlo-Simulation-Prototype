@@ -1,51 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-const HistoricalBodyContainer = ({ activeTab }) => {
-  const [unitOfValue, setUnitOfValue] = useState('customers');
-  const [unitOfOccurrence, setUnitOfOccurrence] = useState('days');
-  const [values, setValues] = useState([0]);
-  const [occurrences, setOccurrences] = useState([0]);
-  const [probabilities, setProbabilities] = useState([0]);
-
-  const handleInputUnitofOccurrence = (e) => {
-    setUnitOfOccurrence(e.target.value);
-  };
-
-  const handleInputUnitofValue = (e) => {
-    setUnitOfValue(e.target.value);
-  };
-
-  const recalculateProbabilities = () => {
-    const totalOccurrences = occurrences.reduce((acc, occurrence) => acc + occurrence, 0);
-    const newProbabilities = totalOccurrences === 0
-      ? occurrences.map(() => 0)
-      : occurrences.map((occurrence) => occurrence / totalOccurrences);
-    setProbabilities(newProbabilities);
-  };
-
-  useEffect(() => {
-    recalculateProbabilities();
-  }, [values, occurrences]);
-
-  const addRow = () => {
-    setValues([...values, 0]);
-    setOccurrences([...occurrences, 0]);
-  };
-
-  const deleteRow = () => {
-    if (values.length > 1) {
-      setValues(values.slice(0, -1));
-      setOccurrences(occurrences.slice(0, -1));
-      setProbabilities(probabilities.slice(0, -1));
-    }
-  };
-
-  const handleInputChange = (index, event, type) => {
-    const newArray = type === 'value' ? [...values] : [...occurrences];
-    newArray[index] = Number(event.target.value);
-    type === 'value' ? setValues(newArray) : setOccurrences(newArray);
-  };
-
+const HistoricalBodyContainer = ({
+  unitOfValue,
+  unitOfOccurrence,
+  values,
+  occurrences,
+  probabilities,
+  handleInputUnitofValue,
+  handleInputUnitofOccurrence,
+  handleInputChange,
+  addRow,
+  deleteRow,
+}) => {
   return (
     <div className='hist-cat-body-container'>
       <div className='hist-cat-input-unit-container'>
