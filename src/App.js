@@ -32,11 +32,22 @@ function App() {
         <div className='monte-carlo-sim-container'>
           <div className='hist-cat-container'>
             <div className='cont-header-container'>
-
+              <div className='hist-cat-tab-active'>
+                <p>Historical Data</p>
+              </div>
+              <div className='hist-cat-tab-inactive'>
+                <p>Categorical Data</p>
+              </div>
             </div>
             <div className='hist-cat-data-container'>
+              <div className='hist-cat-input-unit-container'>
 
+              </div>
+              <div className='hist-cat-additional-data-container'>
+
+              </div>
             </div>
+            
           </div>
           <div className='computations-container'>
             <div className='cont-header-container'>

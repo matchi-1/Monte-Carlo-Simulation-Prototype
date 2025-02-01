@@ -4,6 +4,12 @@
   --light-grey: #9B9B9B;
   --text-dark-grey: #6F6F6F;
   --text-light-dark-grey: #A0A0A0;
+  --fill-light-grey: #E2E2E2;
+  --cont-outline-dark-grey: #868686;
+  --tab-text-dark-grey: #828282;
+  --tab-text-light-grey: #A0A0A0;
+  --tab-outline-inactive-grey: #BABABA;
+  --tab-fill-inactive-light-grey: #F6F6F6;
 }
 
 html, body {
@@ -121,7 +127,7 @@ html, body {
   flex-direction: row;
   color: var(--text-light-dark-grey);
   font-weight: 400;
-  border: 1px solid black;
+  
   height: 2rem;
   align-items: flex-end;
   justify-content: flex-start;
@@ -130,4 +136,27 @@ html, body {
 .cont-header-container p{
   margin-top: 0;
   margin-bottom: 0.25rem;
+}
+
+.hist-cat-tab-active, .hist-cat-tab-inactive{
+  width: 8rem;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  padding: 0rem 1rem ;
+}
+
+.hist-cat-tab-active{
+  border: 1px solid var(--cont-outline-dark-grey);
+  border-bottom: none;  
+  background-color: var(--fill-light-grey);
+  font-weight: 500;
+  color: var(--tab-text-dark-grey);
+}
+
+.hist-cat-tab-inactive{
+  border: 1px solid var(--tab-outline-inactive-grey);
+  border-bottom: 1px solid var(--cont-outline-dark-grey);  
+  background-color: var(--tab-fill-inactive-light-grey);
+  color: var(--tab-text-light-grey);
 }
