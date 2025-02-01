@@ -95,72 +95,66 @@ function App() {
     console.log('Simulate button clicked');
     console.log('Calculated RNI Intervals:', rniIntervals);
     console.log('Current values:', values);
-
+  
     // Generate random number between 0 and 99
     const randomNumber = Math.floor(Math.random() * 100);
     console.log(`Generated Random Number: ${randomNumber}`);
-
+  
     // Find the corresponding predicted value based on the random number and the RNI intervals
     let predictedValueForThisSimulation = 0;
     let intervalMatched = false;
-
+  
     // Check if rniIntervals and values have the same length
     if (rniIntervals.length !== values.length) {
-        console.error('Mismatched lengths between RNI intervals and values arrays');
-        return;
+      console.error('Mismatched lengths between RNI intervals and values arrays');
+      return;
     }
-
+  
     for (let i = 0; i < rniIntervals.length; i++) {
-        // Skip NaN values in rniIntervals
-        if (isNaN(rniIntervals[i])) {
-            console.log(`Skipping NaN interval at index ${i}`);
-            continue;
-        }
-
-        // Get the lower and upper bounds from the tuple
-        const [lower, upper] = rniIntervals[i];
-
-        // Adjust the condition to check the entire range inclusively
-        if (randomNumber >= lower && randomNumber <= upper) {
-            predictedValueForThisSimulation = values[i];
-            intervalMatched = true;
-            console.log(`Interval matched at index ${i}: RNI = ${rniIntervals[i]}, Predicted Value = ${predictedValueForThisSimulation}`);
-
-            // Directly set the predicted value array
-            setPredictedValue((prevPredictedValues) => [
-                ...prevPredictedValues,
-                predictedValueForThisSimulation, // Add predicted value immediately
-            ]);
-            break;
-        }
+      // Skip invalid intervals
+      if (!Array.isArray(rniIntervals[i]) || rniIntervals[i].length !== 2) {
+        console.log(`Skipping invalid interval at index ${i}`);
+        continue;
+      }
+  
+      // Get the lower and upper bounds from the tuple
+      const [lower, upper] = rniIntervals[i];
+  
+      // Adjust the condition to check the entire range inclusively
+      if (randomNumber >= lower && randomNumber <= upper) {
+        predictedValueForThisSimulation = values[i];
+        intervalMatched = true;
+        console.log(`Interval matched at index ${i}: RNI = ${rniIntervals[i]}, Predicted Value = ${predictedValueForThisSimulation}`);
+        break;
+      }
     }
-
+  
     // If no match was found, log a warning
     if (!intervalMatched) {
-        console.warn(`No matching RNI interval found for random number: ${randomNumber}`);
+      console.warn(`No matching RNI interval found for random number: ${randomNumber}`);
     }
-
+  
     console.log(`Simulating... Random Number: ${randomNumber}, Predicted Value: ${predictedValueForThisSimulation}`);
-
+  
     // Add the new simulation to the simulations array
     setSimulations((prevSimulations) => {
-        const newSimulation = [
-            ...prevSimulations,
-            {
-                count: prevSimulations.length + 1,
-                randomGeneratedNumber: randomNumber,
-                predictedValue: predictedValueForThisSimulation,
-            },
-        ];
-
-        // Calculate the new average
-        const newAverage =
-            newSimulation.reduce((sum, sim) => sum + sim.predictedValue, 0) /
-            newSimulation.length;
-
-        setAveragePredictedValue(newAverage);
-
-        return newSimulation;
+      const newSimulation = [
+        ...prevSimulations,
+        {
+          count: prevSimulations.length + 1,
+          randomGeneratedNumber: randomNumber,
+          predictedValue: predictedValueForThisSimulation,
+        },
+      ];
+  
+      // Calculate the new average
+      const newAverage =
+        newSimulation.reduce((sum, sim) => sum + sim.predictedValue, 0) /
+        newSimulation.length;
+  
+      setAveragePredictedValue(newAverage);
+  
+      return newSimulation;
     });
   };
 
@@ -189,10 +183,6 @@ function App() {
             <h5>Historical Data</h5>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
           </div>
-          <div className='data-inst-container'>
-            <h5>Categorical Data</h5>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          </div>
         </div>
         <div className='monte-carlo-sim-container'>
           <div className='hist-cat-container'>
@@ -202,46 +192,87 @@ function App() {
                 <p>Historical Data</p>
               </div>
             </div>
-            <HistoricalBodyContainer
-                unitOfValue={unitOfValue}
-                unitOfOccurrence={unitOfOccurrence}
-                values={values}
-                occurrences={occurrences}
-                probabilities={probabilities}
-                handleInputUnitofValue={handleInputUnitofValue}
-                handleInputUnitofOccurrence={handleInputUnitofOccurrence}
-                handleInputChange={handleInputChange}
-                addRow={addRow}
-                deleteRow={deleteRow}
-              />
-          </div>
-          <div className='computations-container'>
-
-            <div className='cont-header-container'>
-              <p>Computations</p>
-            </div>
-
-            <div className='computation-body-container'>
-              <div className="computation-table-wrapper">
+            
+            <div className='hist-cat-body-container'>
+              <div className='hist-cat-input-unit-container'>
+                <div className="inputs-container">
+                  <div className='input-label-container'>
+                    <label className="input-label-text">Unit of value:</label>
+                    <input 
+                      type="text" 
+                      placeholder="Ex. customers, cakes, etc." 
+                      className="input-field-text"
+                      value={unitOfValue}
+                      onChange={handleInputUnitofValue}
+                      onKeyPress={(e) => !/[a-zA-Z\s]/.test(e.key) && e.preventDefault()}
+                    />
+                  </div>
+                  <div className='input-label-container'>
+                    <label className="input-label-text">Unit of occurrence:</label>
+                    <input 
+                      type="text" 
+                      placeholder="Ex. days, years" 
+                      className="input-field-text"
+                      value={unitOfOccurrence}
+                      onChange={handleInputUnitofOccurrence}
+                      onKeyPress={(e) => !/[a-zA-Z\s]/.test(e.key) && e.preventDefault()}
+                    />
+                  </div>
+                </div>
+                <div className="buttons-container">
+                  <div className="row-button" id='add-row-btn' onClick={addRow}>
+                    <p id='btn-text-icon'>+</p><p>add row</p>
+                  </div>
+                  <div className="row-button" id='delete-row-btn' onClick={deleteRow}>
+                    <p id='btn-text-icon'>-</p><p>delete last row</p>
+                  </div>
+                </div>
+              </div>
+              <div className='table-wrapper'>
                 <table className="cat-hist-table">
                   <thead>
                     <tr>
+                      <th>Number of {unitOfValue}</th>
+                      <th>Number of {unitOfOccurrence}</th>
+                      <th>Probability</th>
                       <th>Cumulative Probability</th>
                       <th>RNI</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {values.map((_, index) => (
+                    {values.map((value, index) => (
                       <tr key={index}>
+                        <td>
+                          <input
+                            type="number"
+                            value={value}
+                            onChange={(e) => handleInputChange(index, e, 'value')}
+                            min="0"
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="number"
+                            value={occurrences[index]}
+                            onChange={(e) => handleInputChange(index, e, 'occurrence')}
+                            min="0"
+                          />
+                        </td>
+                        <td>{probabilities[index]?.toFixed(2) || '0.00'}</td>
                         <td>{cumulativeProbabilities[index]?.toFixed(2) || '0.00'}</td>
-                        <td>{rniIntervals[index] || 'NaN'}</td>
+                        <td>{rniIntervals[index] ? `${rniIntervals[index][0]} - ${rniIntervals[index][1]}` : 'NaN'}</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
+              <div className="hist-cat-additional-data-container">
+                <h4>Total number of {unitOfOccurrence}: {occurrences.reduce((acc, val) => acc + val, 0)}</h4>
+                <p>Sum of the number of occurrences (used to divide an individual number of occurrence to get its probability)</p>
+              </div>
             </div>
           </div>
+          
           <div className='simulations-container'>
           <div className="simulations-header-container">
             <p>Simulations</p>
