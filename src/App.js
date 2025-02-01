@@ -287,28 +287,31 @@ function App() {
           </div>
 
             <div className='simulations-body-container'>
-              <table className="cat-hist-table">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Random Generated Number</th>
-                    <th>Predicted Value</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  
-                {simulations.map((simulation) => (
-                    <tr key={simulation.count}>
-                        <td>{simulation.count}</td>
-                        <td>{simulation.randomGeneratedNumber}</td>
-                        <td>{simulation.predictedValue}</td>
+              <div className='simulations-table-wrapper'>
+                <table className="cat-hist-table">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Random Generated Number</th>
+                      <th>Predicted Value</th>
                     </tr>
-                ))}
+                  </thead>
+                  <tbody>
+                    
+                  {simulations.map((simulation) => (
+                      <tr key={simulation.count}>
+                          <td>{simulation.count}</td>
+                          <td>{simulation.randomGeneratedNumber}</td>
+                          <td>{simulation.predictedValue}</td>
+                      </tr>
+                  ))}
 
-                  
-                </tbody>
-              </table>
-              <h4>Average number of {unitOfOccurrence}: {averagePredictedValue}</h4>
+                    
+                  </tbody>
+               </table>
+              </div>
+              
+              <h4>Average number of {unitOfOccurrence}: {averagePredictedValue.toFixed(2)}</h4>
             </div>
           </div>
         </div>

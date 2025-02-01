@@ -26,6 +26,7 @@ html, body {
   flex-direction: column;
   font-family: 'Inter', sans-serif;
   height: 100vh; 
+  overflow: hidden;
 }
 
 /*header*/
@@ -254,3 +255,9 @@ html, body {
   cursor: pointer;
   transition: background-color 0.3s;
 }
+
+.simulations-table-wrapper{
+  max-height: 30rem; 
+  overflow-y: auto; 
+}
+
