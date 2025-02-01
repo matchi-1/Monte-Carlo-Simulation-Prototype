@@ -18,8 +18,14 @@ function App() {
         </div>
       </div>
       <div className='body'>
-        <div className='instructions'>
-
+        <div className='instructions-container'>
+          <p>How to use?</p>
+          <div className='data-inst-container'>
+            
+          </div>
+          <div className='data-inst-container'>
+            
+          </div>
         </div>
         <div className='monte-carlo-sim-container'>
           <div className='hist-cat-container'>
