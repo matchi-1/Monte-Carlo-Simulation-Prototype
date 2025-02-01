@@ -15,7 +15,7 @@ function App() {
   const [predictedValue, setPredictedValue] = useState([]);
   const [simulations, setSimulations] = useState([]);
   const [isReadyToSimulate, setIsReadyToSimulate] = useState(false);
-  
+
   const resetValueOccurrence = () => {
     // Reset all the necessary states to their initial values
     setValues([0]);
@@ -207,8 +207,41 @@ function App() {
           <p>How to use?</p>
           <div className='data-inst-container'>
             <h5>Historical Data</h5>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>
+              <strong>1. Unit of Value</strong>: Enter a ‘Unit of Value’, which defines the measurement or currency to be used for the first column of the table. The name of the leftmost column will dynamically change based on this metric.
+            </p>
+            <p>
+              <strong>2. Unit of Occurrence</strong>: Enter a ‘Unit of Occurrence’, which specifies the frequency or context in which the data is recorded. The name of the second leftmost column will dynamically change based on this metric.
+            </p>
+            <p>
+              <strong>3. Adding/Removing Rows</strong>: You can add a row or delete the last row using the two respective buttons next to the ‘Unit of Value’ or ‘Unit of Occurrence’ text fields.
+            </p>
+            <p>
+              <strong>4. First Column Input</strong>: In each cell of the first column, you can input a numeric whole number. This specifies the value to be displayed later on.
+            </p>
+            <p>
+              <strong>5. Second Column Input</strong>: In each cell of the second leftmost column, you can input a numeric whole number. This value is used to automatically calculate the ‘Probability’ column, and it will also populate the ‘Cumulative Probability’ and ‘RNI’ columns in the ‘Computations’ section.
+            </p>
+            <p>
+              <strong>6. Total Number of Occurrences</strong>: The ‘Total number of Occurrences’ will dynamically update as you add more data.
+            </p>
+            <p>
+              <strong>7. Simulate Button</strong>: After entering data, click the ‘Simulate’ button. This generates a random number and displays it in the ‘Random Generated No.’ column under the ‘Simulations’ section on the right.
+            </p>
+            <p>
+              <strong>8. # Column in Simulations</strong>: The ‘#’ column indicates how many times you’ve pressed the ‘Simulate’ button.
+            </p>
+            <p>
+              <strong>9. Predicted Value</strong>: The ‘Predicted Value’ column is based on the random value generated. Specifically, it corresponds to the row in the leftmost column where the random value falls within the range specified by the ‘RNI’ column.
+            </p>
+            <p>
+              <strong>10. Average Number of Occurrences</strong>: The average number of occurrences will be dynamically displayed. It is calculated as the total sum of all the listed ‘Predicted Values’ divided by the number of simulations (the last value in the ‘#’ column).
+            </p>
+            <p>
+              <strong>11. Restart Button</strong>: You may press the ‘Restart’ button next to the ‘Simulate’ button to reset and clear all the displayed cells.
+            </p>
           </div>
+
         </div>
         <div className='monte-carlo-sim-container'>
           <div className='hist-cat-container'>
