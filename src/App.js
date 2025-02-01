@@ -203,10 +203,13 @@ function App() {
       <div className="header">
         <h1>Monte Carlo Simulation Prototype</h1>
         <div className='header-right-section'>
-          <div className='header-icon-image-right-section'>
-            <img src="/video-icon.png" className="video-icon-logo" alt="video-icon"/>
-            <p>Video Demo</p>
-          </div>
+          <a href="https://drive.google.com/file/d/16gzBXEOxp288TAmUTgLy-tslhF8DFg_t/view?usp=sharing" className="no-link-style">
+            <div className='header-icon-image-right-section'>
+              <img src="/video-icon.png" className="video-icon-logo" alt="video-icon"/>
+              <p>Video Demo</p>
+            </div>
+          </a>
+
           <a href="https://docs.google.com/document/d/1xBG0dHFGY-5s0ua_5BtuPHGgcgIqAgumM9rfQJdZ194" target="_blank" rel="noopener noreferrer"  className="no-link-style">
             <div className='header-icon-image-right-section'>
               <img src="/info-icon.png" className="info-icon-logo" alt="info-icon"/>
