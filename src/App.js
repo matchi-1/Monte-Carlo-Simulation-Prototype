@@ -4,8 +4,8 @@ import React, { useState, useEffect } from 'react';
 import HistoricalBodyContainer from './components/HistoricalBodyContainer'; 
 
 function App() {
-  const [unitOfValue, setUnitOfValue] = useState('customers');
-  const [unitOfOccurrence, setUnitOfOccurrence] = useState('days');
+  const [unitOfValue, setUnitOfValue] = useState('');
+  const [unitOfOccurrence, setUnitOfOccurrence] = useState('');
   const [values, setValues] = useState([0]);
   const [occurrences, setOccurrences] = useState([0]);
   const [probabilities, setProbabilities] = useState([0]);
@@ -15,6 +15,7 @@ function App() {
   const [predictedValue, setPredictedValue] = useState([]);
   const [simulations, setSimulations] = useState([]);
   const [isReadyToSimulate, setIsReadyToSimulate] = useState(false);
+  const [hasSimulated, setHasSimulated] = useState(false);
 
   const resetValueOccurrence = () => {
     // Reset all the necessary states to their initial values
@@ -26,8 +27,9 @@ function App() {
     setPredictedValue([]);
     setSimulations([]);
     setAveragePredictedValue(0);
-    setUnitOfValue('customers');
-    setUnitOfOccurrence('days');
+    setUnitOfValue('');
+    setUnitOfOccurrence('');
+    setHasSimulated(false);
   };
   
 
@@ -42,6 +44,7 @@ function App() {
   }, [cumulativeProbabilities]);  // Runs whenever cumulativeProbabilities changes
 
   const handleRestart = () => {
+    setHasSimulated(false);
     setSimulations([]);
     setAveragePredictedValue(0);
   };
@@ -118,6 +121,12 @@ function App() {
   };
 
   const handleSimulate = () => {
+    if (!unitOfValue || !unitOfOccurrence) {
+      alert("Please fill in both 'Unit of Value' and 'Unit of Occurrence' before simulation.");
+      return; // Stop the simulation if fields are not filled
+  }
+
+    setHasSimulated(true);
     console.log('Simulate button clicked');
     console.log('Calculated RNI Intervals:', rniIntervals);
     console.log('Current values:', values);
@@ -192,6 +201,10 @@ function App() {
       <div className="header">
         <h1>Monte Carlo Simulation Prototype</h1>
         <div className='header-right-section'>
+          <div className='header-icon-image-right-section'>
+            <img src="/video-icon.png" className="video-icon-logo" alt="video-icon"/>
+            <p>Video Demo</p>
+          </div>
           <a href="https://docs.google.com/document/d/1xBG0dHFGY-5s0ua_5BtuPHGgcgIqAgumM9rfQJdZ194" target="_blank" rel="noopener noreferrer"  className="no-link-style">
             <div className='header-icon-image-right-section'>
               <img src="/info-icon.png" className="info-icon-logo" alt="info-icon"/>
@@ -253,6 +266,7 @@ function App() {
                       className="input-field-text"
                       value={unitOfValue}
                       onChange={handleInputUnitofValue}
+                      disabled={hasSimulated}
                       onKeyPress={(e) => !/[a-zA-Z\s]/.test(e.key) && e.preventDefault()}
                     />
                   </div>
@@ -264,6 +278,7 @@ function App() {
                       className="input-field-text"
                       value={unitOfOccurrence}
                       onChange={handleInputUnitofOccurrence}
+                      disabled={hasSimulated}
                       onKeyPress={(e) => !/[a-zA-Z\s]/.test(e.key) && e.preventDefault()}
                     />
                   </div>
@@ -299,6 +314,7 @@ function App() {
                             type="number"
                             value={value}
                             onChange={(e) => handleInputChange(index, e, 'value')}
+                            disabled={hasSimulated}
                             min="0"
                           />
                         </td>
@@ -307,6 +323,7 @@ function App() {
                             type="number"
                             value={occurrences[index]}
                             onChange={(e) => handleInputChange(index, e, 'occurrence')}
+                            disabled={hasSimulated}
                             min="0"
                           />
                         </td>
