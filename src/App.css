@@ -198,6 +198,9 @@ html, body {
 
 .hist-cat-input-unit-container{
   justify-content: space-between;
+  border: 1px solid red;
+  box-sizing: border-box;
+  height: 4rem;
 }
 
 .input-label-text{
@@ -263,14 +266,14 @@ html, body {
   width: 5.5rem;
 }
 
-/*table css*/
-
-
 
 /*additional text in cat-hist*/
 .hist-cat-additional-data-container{
   padding-right: 1rem;
-  height: 2rem;
+  padding-top: 1rem;
+  height: 4rem;
+  border: 1px solid red;
+  box-sizing: border-box;
 }
 .hist-cat-additional-data-container p, .hist-cat-additional-data-container h4{
   margin: 0;
@@ -285,3 +288,64 @@ html, body {
   font-style: italic;
 }
 
+/*table css*/
+
+/* Table Styling */
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  color: var(--text-dark-grey);
+  
+}
+
+.styled-table th{
+  padding: 0.5rem;
+  text-align: center;
+  font-size: 0.85rem;
+  border-spacing: 1rem;
+}
+.styled-table td{
+  font-size: 0.85rem;
+  border-spacing: 1rem;
+}
+
+.styled-table th {
+  background-color: #ffffff;
+  border-bottom: 2px solid var(--cont-outline-dark-grey);
+  color: var(--text-dark-grey);
+  font-weight: 400;
+}
+
+.styled-table input[type="number"] {
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  border: 1px solid rgb(232, 232, 232);
+  font-size: 0.8rem;
+
+}
+
+.styled-table td input[type="number"]:focus {
+  border-color: #c4c4c4;
+  outline: none;
+}
+
+.styled-table td input[type="number"]:disabled {
+  background-color: #e9e9e9;
+}
+
+/* Hover Effects for Buttons or Interactions */
+.styled-table tbody tr input[type="number"]:hover {
+  cursor: pointer;
+}
+
+.styled-table tbody td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.styled-table td input {
+  font-size: 0.8rem;
+  font-weight: normal;
+}

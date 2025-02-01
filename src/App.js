@@ -162,7 +162,7 @@ function App() {
               </div>
               {/* Table Container */}
               <div className="hist-cat-table-container">
-                <table>
+                <table className="styled-table">
                   <thead>
                     <tr>
                       <th>Number of {unitOfValue}</th>
@@ -185,9 +185,7 @@ function App() {
                           <input
                             type="number"
                             value={occurrences[index]}
-                            onChange={(e) =>
-                              handleInputChange(index, e, 'occurrence')
-                            }
+                            onChange={(e) => handleInputChange(index, e, 'occurrence')}
                             min="0"
                           />
                         </td>
@@ -196,6 +194,7 @@ function App() {
                     ))}
                   </tbody>
                 </table>
+
               </div>
 
               <div className="hist-cat-additional-data-container">
