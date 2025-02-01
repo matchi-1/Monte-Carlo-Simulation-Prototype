@@ -2,10 +2,8 @@ import './styles/App.css';
 import './styles/HistCat.css';
 import React, { useState, useEffect } from 'react';
 import HistoricalBodyContainer from './components/HistoricalBodyContainer'; 
-import CategoricalBodyContainer from './components/CategoricalBodyContainer';
 
 function App() {
-  const [activeTab, setActiveTab] = useState('historical');
   const [unitOfValue, setUnitOfValue] = useState('customers');
   const [unitOfOccurrence, setUnitOfOccurrence] = useState('days');
   const [values, setValues] = useState([0]);
@@ -72,8 +70,6 @@ function App() {
   
     setRniIntervals(newRniIntervals);
   }, [cumulativeProbabilities]);
-
-  
 
 
   const addRow = () => {
@@ -202,23 +198,11 @@ function App() {
           <div className='hist-cat-container'>
             {/* Tab Header */}
             <div className='cont-header-container'>
-              <div
-                className={activeTab === 'historical' ? 'hist-cat-tab-active' : 'hist-cat-tab-inactive'}
-                onClick={() => setActiveTab('historical')}
-              >
+              <div className='hist-cat-tab-active'>
                 <p>Historical Data</p>
               </div>
-              <div
-                className={activeTab === 'categorical' ? 'hist-cat-tab-active' : 'hist-cat-tab-inactive'}
-                onClick={() => setActiveTab('categorical')}
-              >
-                <p>Categorical Data</p>
-              </div>
             </div>
-
-            {activeTab === 'historical' ? (
-              <HistoricalBodyContainer
-                activeTab={activeTab}
+            <HistoricalBodyContainer
                 unitOfValue={unitOfValue}
                 unitOfOccurrence={unitOfOccurrence}
                 values={values}
@@ -230,12 +214,6 @@ function App() {
                 addRow={addRow}
                 deleteRow={deleteRow}
               />
-            ) : (
-              <CategoricalBodyContainer 
-              activeTab={activeTab}
-              />
-            )}
-
           </div>
           <div className='computations-container'>
 

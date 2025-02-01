@@ -7,7 +7,6 @@
     align-items: flex-end;
     padding: 0rem 1rem ;
     z-index: 1;
-    cursor: pointer;
   }
   
   .hist-cat-tab-active{
@@ -16,13 +15,6 @@
     background-color: var(--fill-light-grey);
     font-weight: 500;
     color: var(--tab-text-dark-grey);
-  }
-  
-  .hist-cat-tab-inactive{
-    border: 1px solid var(--tab-outline-inactive-grey);
-    border-bottom: 1px solid var(--cont-outline-dark-grey);  
-    background-color: var(--tab-fill-inactive-light-grey);
-    color: var(--tab-text-light-grey);
   }
   
   .hist-cat-body-container{
