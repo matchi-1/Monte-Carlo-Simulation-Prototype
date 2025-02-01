@@ -1,5 +1,5 @@
-import logo from './logo.svg';
-import './App.css';
+import './styles/App.css';
+import './styles/HistCat.css';
 import React, { useState } from 'react';
 import HistoricalBodyContainer from './components/HistoricalBodyContainer'; 
 import CategoricalBodyContainer from './components/CategoricalBodyContainer';
@@ -62,6 +62,9 @@ function App() {
           <div className='computations-container'>
             <div className='cont-header-container'>
               <p>Computations</p>
+            </div>
+            <div className='computation-body-container'>
+
             </div>
           </div>
           <div className='simulations-container'>

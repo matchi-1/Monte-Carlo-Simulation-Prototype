@@ -141,6 +141,7 @@ html, body {
   height: 2rem;
   align-items: flex-end;
   justify-content: flex-start;
+  border: 1px solid red;
 }
 
 .cont-header-container p{
