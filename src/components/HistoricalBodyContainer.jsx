@@ -76,7 +76,7 @@ const HistoricalBodyContainer = ({
                     min="0"
                   />
                 </td>
-                <td>{probabilities[index]?.toFixed(3) || '0.000'}</td>
+                <td>{probabilities[index]?.toFixed(2) || '0.00'}</td>
               </tr>
             ))}
           </tbody>

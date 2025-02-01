@@ -122,7 +122,7 @@
   
   /*table css*/
   
-  .table-wrapper{
+  .table-wrapper, computation-table-wrapper{
     max-height: 21rem; 
     overflow-y: auto; 
   }

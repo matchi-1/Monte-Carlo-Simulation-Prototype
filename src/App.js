@@ -11,6 +11,8 @@ function App() {
   const [values, setValues] = useState([0]);
   const [occurrences, setOccurrences] = useState([0]);
   const [probabilities, setProbabilities] = useState([0]);
+  const [cumulativeProbabilities, setCumulativeProbabilities] = useState([]);
+  const [rniIntervals, setRniIntervals] = useState([]);
 
   const handleInputUnitofOccurrence = (e) => {
     setUnitOfOccurrence(e.target.value);
@@ -31,6 +33,33 @@ function App() {
   useEffect(() => {
     recalculateProbabilities();
   }, [values, occurrences]);
+
+  useEffect(() => {
+    const newCumulativeProbabilities = probabilities.reduce((acc, prob, index) => {
+      const previousSum = index === 0 ? 0 : acc[index - 1];
+      acc.push(previousSum + prob);
+      return acc;
+    }, []);
+  
+    setCumulativeProbabilities(newCumulativeProbabilities);
+  }, [probabilities]);
+
+  useEffect(() => {
+    if (cumulativeProbabilities.length === 0) return;
+  
+      const newRniIntervals = cumulativeProbabilities.map((cumProb, index) => {
+      const lowerBound = index === 0 ? 0 : Math.round(cumulativeProbabilities[index - 1] * 100);
+      const upperBound = Math.min(Math.round(cumProb * 100) - 1, 99); // Ensure max value is 99
+
+      // If lower bound is greater than upper bound, return NaN
+      if (lowerBound > upperBound) return NaN;
+  
+      return `${lowerBound}-${upperBound}`;
+    });
+  
+    setRniIntervals(newRniIntervals);
+  }, [cumulativeProbabilities]);
+  
 
   const addRow = () => {
     setValues([...values, 0]);
@@ -131,14 +160,10 @@ function App() {
                     </tr>
                   </thead>
                   <tbody>
-                    {values.map((value, index) => (
+                    {values.map((_, index) => (
                       <tr key={index}>
-                        <td>
-                          
-                        </td>
-                        <td>
-                          
-                        </td>
+                        <td>{cumulativeProbabilities[index]?.toFixed(2) || '0.00'}</td>
+                        <td>{rniIntervals[index] || 'NaN'}</td>
                       </tr>
                     ))}
                   </tbody>
