@@ -36,7 +36,7 @@ function App() {
 
   useEffect(() => {
     // Check if cumulativeProbabilities[0] is still 0 and set isReadyToSimulate accordingly
-    if (cumulativeProbabilities[0] === 0) {
+    if (occurrences.reduce((acc, val) => acc + val, 0) === 0) {
       setIsReadyToSimulate(false);
     } else {
       setIsReadyToSimulate(true);
