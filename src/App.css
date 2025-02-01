@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
+
+/*overall*/
 :root {
   --light-grey: #9B9B9B;
   --text-dark-grey: #6F6F6F;
@@ -17,12 +19,15 @@ html, body {
   margin: 0; 
 }
 
+
 .app-container {
   display: flex;
   flex-direction: column;
   font-family: 'Inter', sans-serif;
   height: 100vh; 
 }
+
+/*header*/
 
 .header, .header-right-section, .header-icon-image-right-section, .body {
   display: flex;
@@ -56,12 +61,16 @@ html, body {
 }
 
 
+/*body*/
+
 .body {
   flex: 1;
   align-items: flex-start;
   justify-content: flex-start;
   padding: 2rem 3rem 3rem 2rem;
 }
+
+/*instructions*/
 
 .instructions-container {
   padding: 0rem .65rem 1rem .65rem;
@@ -102,6 +111,8 @@ html, body {
   margin: 0;
 }
 
+/*monte carlo main container*/
+
 .monte-carlo-sim-container {
   display: grid;
   grid-template-columns: 1.85fr 1fr 1.5fr; /* Controls column proportions */
@@ -138,12 +149,16 @@ html, body {
   margin-bottom: 0.25rem;
 }
 
+/*historical categorical container*/
+
 .hist-cat-tab-active, .hist-cat-tab-inactive{
   width: 8rem;
   height: 100%;
   display: flex;
   align-items: flex-end;
   padding: 0rem 1rem ;
+  z-index: 1;
+  cursor: pointer;
 }
 
 .hist-cat-tab-active{
@@ -159,4 +174,15 @@ html, body {
   border-bottom: 1px solid var(--cont-outline-dark-grey);  
   background-color: var(--tab-fill-inactive-light-grey);
   color: var(--tab-text-light-grey);
+}
+
+.hist-cat-body-container{
+  display: flex;
+  margin: -1px;
+  z-index: 0;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--cont-outline-dark-grey);
+  background-color: var(--fill-light-grey);
 }

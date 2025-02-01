@@ -1,7 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { useState } from 'react';
 
 function App() {
+  const [activeTab, setActiveTab] = useState('historical');
   return (
     <div className="app-container">
       <div className="header">
@@ -32,14 +34,20 @@ function App() {
         <div className='monte-carlo-sim-container'>
           <div className='hist-cat-container'>
             <div className='cont-header-container'>
-              <div className='hist-cat-tab-active'>
+              <div
+                className={activeTab === 'historical' ? 'hist-cat-tab-active' : 'hist-cat-tab-inactive'}
+                onClick={() => setActiveTab('historical')}
+              >
                 <p>Historical Data</p>
               </div>
-              <div className='hist-cat-tab-inactive'>
+              <div
+                className={activeTab === 'categorical' ? 'hist-cat-tab-active' : 'hist-cat-tab-inactive'}
+                onClick={() => setActiveTab('categorical')}
+              >
                 <p>Categorical Data</p>
               </div>
             </div>
-            <div className='hist-cat-data-container'>
+            <div className='hist-cat-body-container'>
               <div className='hist-cat-input-unit-container'>
 
               </div>
