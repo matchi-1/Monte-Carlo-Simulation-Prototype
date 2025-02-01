@@ -231,7 +231,9 @@ function App() {
                 deleteRow={deleteRow}
               />
             ) : (
-              <CategoricalBodyContainer />
+              <CategoricalBodyContainer 
+              activeTab={activeTab}
+              />
             )}
 
           </div>

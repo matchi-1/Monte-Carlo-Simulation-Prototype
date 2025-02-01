@@ -160,6 +160,16 @@
     background-color: #ffffff;
     border: 0.25rem solid var(--fill-light-grey);
   }
+
+  .cat-hist-table input[type="text"] {
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    border: none;
+    font-size: 0.8rem;  
+    box-sizing: border-box;
+    color: var(--text-dark-grey);
+  }
   
   .cat-hist-table input[type="number"] {
     text-align: center;

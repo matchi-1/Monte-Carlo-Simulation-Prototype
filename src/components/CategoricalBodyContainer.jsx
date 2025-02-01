@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react';
 const CategoricalBodyContainer = ({ activeTab }) => {
   const [unitOfValue, setUnitOfValue] = useState('customers');
   const [unitOfOccurrence, setUnitOfOccurrence] = useState('days');
-  const [values, setValues] = useState([0]);
+  const [values, setValues] = useState(['']); // Keep this as an array of strings for categories
   const [occurrences, setOccurrences] = useState([0]);
-  const [probabilities, setProbabilities] = useState([0]);
+  const [probabilities, setProbabilities] = useState(['0.00']);
 
   const handleInputUnitofOccurrence = (e) => {
     setUnitOfOccurrence(e.target.value);
@@ -25,11 +25,12 @@ const CategoricalBodyContainer = ({ activeTab }) => {
 
   useEffect(() => {
     recalculateProbabilities();
-  }, [values, occurrences]);
+  }, [values]);
 
   const addRow = () => {
-    setValues([...values, 0]);
+    setValues([...values, '']); // Add empty string for new category
     setOccurrences([...occurrences, 0]);
+    setProbabilities([...probabilities, 0]);
   };
 
   const deleteRow = () => {
@@ -41,26 +42,51 @@ const CategoricalBodyContainer = ({ activeTab }) => {
   };
 
   const handleInputChange = (index, event, type) => {
-    const newArray = type === 'value' ? [...values] : [...occurrences];
-    newArray[index] = Number(event.target.value);
-    type === 'value' ? setValues(newArray) : setOccurrences(newArray);
+    if (type === 'value') {
+      const newArray = [...values];
+      newArray[index] = event.target.value; // Keep category as string
+      setValues(newArray);
+    } else if (type === 'occurrence') {
+      const newArray = [...occurrences];
+      newArray[index] = Number(event.target.value); // Ensure occurrences are numbers
+      setOccurrences(newArray);
+    } else if (type === 'probabilities') {
+      const newArray = [...probabilities];
+      let inputValue = event.target.value;
+
+      // Automatically append "0." if the user inputs a number greater than 2 digits
+      if (/^\d{3,}$/.test(inputValue)) {
+        inputValue = `0.${inputValue}`;
+      }
+
+      // Validate input: must be a number between 0 and 1
+      if (/^\d*\.?\d*$/.test(inputValue)) { // Allow numbers and decimals
+        const parsedValue = parseFloat(inputValue);
+        if (parsedValue >= 0 && parsedValue <= 1) { // Ensure value is between 0 and 1
+          // Update the state with the raw input value
+          newArray[index] = inputValue;
+          setProbabilities(newArray);
+        }
+      }
+    }
+  };
+
+  const handleProbabilityBlur = (index, event) => {
+    const newArray = [...probabilities];
+    const inputValue = event.target.value;
+
+    // Format to 2 decimal places when the input loses focus
+    const parsedValue = parseFloat(inputValue);
+    if (!isNaN(parsedValue)) {
+      newArray[index] = parsedValue.toFixed(2);
+      setProbabilities(newArray);
+    }
   };
 
   return (
     <div className='hist-cat-body-container'>
       <div className='hist-cat-input-unit-container'>
         <div className="inputs-container">
-          <div className='input-label-container'>
-            <label className="input-label-text">Unit of value:</label>
-            <input 
-              type="text" 
-              placeholder="Ex. customers, cakes, etc." 
-              className="input-field-text"
-              value={unitOfValue}
-              onChange={handleInputUnitofValue}
-              onKeyPress={(e) => !/[a-zA-Z\s]/.test(e.key) && e.preventDefault()}
-            />
-          </div>
           <div className='input-label-container'>
             <label className="input-label-text">Unit of occurrence:</label>
             <input 
@@ -71,6 +97,7 @@ const CategoricalBodyContainer = ({ activeTab }) => {
               onChange={handleInputUnitofOccurrence}
               onKeyPress={(e) => !/[a-zA-Z\s]/.test(e.key) && e.preventDefault()}
             />
+            <div className='input-label-container'></div>
           </div>
         </div>
         <div className="buttons-container">
@@ -87,9 +114,9 @@ const CategoricalBodyContainer = ({ activeTab }) => {
           <table className="cat-hist-table">
             <thead>
               <tr>
-                <th>Number of {unitOfValue}</th>
+                <th>Category</th> {/* Fixed header */}
                 <th>Number of {unitOfOccurrence}</th>
-                <th>Probability</th>
+                <th>Input Probability</th>
               </tr>
             </thead>
             <tbody>
@@ -97,10 +124,10 @@ const CategoricalBodyContainer = ({ activeTab }) => {
                 <tr key={index}>
                   <td>
                     <input
-                      type="number"
+                      type="text"
                       value={value}
-                      onChange={(e) => handleInputChange(index, e, 'value')}
-                      min="0"
+                      onChange={(e) => handleInputChange(index, e, 'value')} // Handle as string
+                      placeholder="Enter category"
                     />
                   </td>
                   <td>
@@ -111,7 +138,17 @@ const CategoricalBodyContainer = ({ activeTab }) => {
                       min="0"
                     />
                   </td>
-                  <td>{probabilities[index]?.toFixed(3) || '0.000'}</td>
+                  <td>
+                    <input
+                      type="number" // Use number type
+                      value={probabilities[index]}
+                      onChange={(e) => handleInputChange(index, e, 'probabilities')}
+                      onBlur={(e) => handleProbabilityBlur(index, e)} // Format on blur
+                      step="0.01" // Enforce 2 decimal places
+                      min="0.00"
+                      placeholder="0.00"
+                    />
+                  </td>
                 </tr>
               ))}
             </tbody>
