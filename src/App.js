@@ -13,6 +13,14 @@ function App() {
   const [probabilities, setProbabilities] = useState([0]);
   const [cumulativeProbabilities, setCumulativeProbabilities] = useState([]);
   const [rniIntervals, setRniIntervals] = useState([]);
+  const [averagePredictedValue, setAveragePredictedValue] = useState(0);
+  const [predictedValue, setPredictedValue] = useState([]);
+  const [simulations, setSimulations] = useState([]);
+
+  const handleRestart = () => {
+    setSimulations([]);
+    setAveragePredictedValue(0);
+  };
 
   const handleInputUnitofOccurrence = (e) => {
     setUnitOfOccurrence(e.target.value);
@@ -30,9 +38,11 @@ function App() {
     setProbabilities(newProbabilities);
   };
 
+
   useEffect(() => {
     recalculateProbabilities();
   }, [values, occurrences]);
+
 
   useEffect(() => {
     const newCumulativeProbabilities = probabilities.reduce((acc, prob, index) => {
@@ -44,22 +54,27 @@ function App() {
     setCumulativeProbabilities(newCumulativeProbabilities);
   }, [probabilities]);
 
+
+
+
   useEffect(() => {
     if (cumulativeProbabilities.length === 0) return;
   
-      const newRniIntervals = cumulativeProbabilities.map((cumProb, index) => {
-      const lowerBound = index === 0 ? 0 : Math.round(cumulativeProbabilities[index - 1] * 100);
-      const upperBound = Math.min(Math.round(cumProb * 100) - 1, 99); // Ensure max value is 99
+    const newRniIntervals = cumulativeProbabilities.map((cumProb, index) => {
+        const lowerBound = index === 0 ? 0 : Math.round(cumulativeProbabilities[index - 1] * 100);
+        const upperBound = Math.min(Math.round(cumProb * 100) - 1, 99); // Ensure max value is 99
 
-      // If lower bound is greater than upper bound, return NaN
-      if (lowerBound > upperBound) return NaN;
-  
-      return `${lowerBound}-${upperBound}`;
+        // If lower bound is greater than upper bound, return NaN
+        if (lowerBound > upperBound) return NaN;
+
+        return [lowerBound, upperBound]; // Return as a tuple of numbers
     });
   
     setRniIntervals(newRniIntervals);
   }, [cumulativeProbabilities]);
+
   
+
 
   const addRow = () => {
     setValues([...values, 0]);
@@ -79,6 +94,82 @@ function App() {
     newArray[index] = Number(event.target.value);
     type === 'value' ? setValues(newArray) : setOccurrences(newArray);
   };
+
+  const handleSimulate = () => {
+    console.log('Simulate button clicked');
+    console.log('Calculated RNI Intervals:', rniIntervals);
+    console.log('Current values:', values);
+
+    // Generate random number between 0 and 99
+    const randomNumber = Math.floor(Math.random() * 100);
+    console.log(`Generated Random Number: ${randomNumber}`);
+
+    // Find the corresponding predicted value based on the random number and the RNI intervals
+    let predictedValueForThisSimulation = 0;
+    let intervalMatched = false;
+
+    // Check if rniIntervals and values have the same length
+    if (rniIntervals.length !== values.length) {
+        console.error('Mismatched lengths between RNI intervals and values arrays');
+        return;
+    }
+
+    for (let i = 0; i < rniIntervals.length; i++) {
+        // Skip NaN values in rniIntervals
+        if (isNaN(rniIntervals[i])) {
+            console.log(`Skipping NaN interval at index ${i}`);
+            continue;
+        }
+
+        // Get the lower and upper bounds from the tuple
+        const [lower, upper] = rniIntervals[i];
+
+        // Adjust the condition to check the entire range inclusively
+        if (randomNumber >= lower && randomNumber <= upper) {
+            predictedValueForThisSimulation = values[i];
+            intervalMatched = true;
+            console.log(`Interval matched at index ${i}: RNI = ${rniIntervals[i]}, Predicted Value = ${predictedValueForThisSimulation}`);
+
+            // Directly set the predicted value array
+            setPredictedValue((prevPredictedValues) => [
+                ...prevPredictedValues,
+                predictedValueForThisSimulation, // Add predicted value immediately
+            ]);
+            break;
+        }
+    }
+
+    // If no match was found, log a warning
+    if (!intervalMatched) {
+        console.warn(`No matching RNI interval found for random number: ${randomNumber}`);
+    }
+
+    console.log(`Simulating... Random Number: ${randomNumber}, Predicted Value: ${predictedValueForThisSimulation}`);
+
+    // Add the new simulation to the simulations array
+    setSimulations((prevSimulations) => {
+        const newSimulation = [
+            ...prevSimulations,
+            {
+                count: prevSimulations.length + 1,
+                randomGeneratedNumber: randomNumber,
+                predictedValue: predictedValueForThisSimulation,
+            },
+        ];
+
+        // Calculate the new average
+        const newAverage =
+            newSimulation.reduce((sum, sim) => sum + sim.predictedValue, 0) /
+            newSimulation.length;
+
+        setAveragePredictedValue(newAverage);
+
+        return newSimulation;
+    });
+  };
+
+
+
 
   return (
     <div className="app-container">
@@ -172,20 +263,41 @@ function App() {
             </div>
           </div>
           <div className='simulations-container'>
-            <div className='simulations-header-container'>
-              <p>Simulations</p>
-              <div className="sim-res-buttons">
-                <button className="simulate-button">
-                  Simulate
-                </button>
-                <button className="restart-button">
-                  Restart
-                </button>
-              </div>
+          <div className="simulations-header-container">
+            <p>Simulations</p>
+            <div className="sim-res-buttons">
+              <button className="simulate-button" onClick={handleSimulate}>
+                Simulate
+              </button>
+              <button className="restart-button" onClick={handleRestart}>
+                Restart
+              </button>
             </div>
+          </div>
 
             <div className='simulations-body-container'>
-              
+              <table className="cat-hist-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Random Generated Number</th>
+                    <th>Predicted Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                {simulations.map((simulation) => (
+                    <tr key={simulation.count}>
+                        <td>{simulation.count}</td>
+                        <td>{simulation.randomGeneratedNumber}</td>
+                        <td>{simulation.predictedValue}</td>
+                    </tr>
+                ))}
+
+                  
+                </tbody>
+              </table>
+              <h4>Average number of {unitOfOccurrence}: {averagePredictedValue}</h4>
             </div>
           </div>
         </div>
