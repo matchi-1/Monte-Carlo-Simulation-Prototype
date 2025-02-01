@@ -172,8 +172,16 @@ function App() {
             </div>
           </div>
           <div className='simulations-container'>
-            <div className='cont-header-container'>
+            <div className='simulations-header-container'>
               <p>Simulations</p>
+              <div className="sim-res-buttons">
+                <button className="simulate-button">
+                  Simulate
+                </button>
+                <button className="restart-button">
+                  Restart
+                </button>
+              </div>
             </div>
           </div>
         </div>

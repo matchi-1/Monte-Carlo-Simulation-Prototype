@@ -34,8 +34,7 @@
     height: 100%;
     border: 1px solid var(--cont-outline-dark-grey);
     background-color: var(--fill-light-grey);
-    padding:1rem;
-    
+    padding: 1rem 0rem 1rem 1rem;
     box-sizing: border-box;
   }
   
@@ -101,6 +100,8 @@
     box-sizing: border-box;
     width: auto;
     cursor: pointer;
+    margin-right: 1rem;
+    
   }
   
   .row-button:hover{

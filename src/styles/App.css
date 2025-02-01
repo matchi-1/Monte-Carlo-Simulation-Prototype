@@ -132,17 +132,20 @@ html, body {
 .computations-container { border-color: green; }
 .simulations-container { border-color: grey; }
 
-.cont-header-container{
+.cont-header-container, .simulations-header-container{
   display: flex;
   flex-direction: row;
   color: var(--text-light-dark-grey);
   font-weight: 400;
   height: 2rem;
   align-items: flex-end;
+}
+
+.cont-header-container{
   justify-content: flex-start;
 }
 
-.cont-header-container p{
+.cont-header-container p, .simulations-header-container p{
   margin-top: 0;
   margin-bottom: 0.25rem;
 }
@@ -177,7 +180,6 @@ html, body {
 .computation-body-container{
   background-color: var(--fill-dark-grey);
   display: flex;
-  margin: -1px;
   z-index: 0;
   flex-direction: column;
   width: 100%;
@@ -187,5 +189,49 @@ html, body {
   box-sizing: border-box;
 }
 .computation-table-wrapper{
-  margin-top: 6rem;
+  margin-top: calc(6rem - 1px);
+}
+
+
+/*Simulations table*/
+
+.simulations-header-container{
+  justify-content: space-between;
+}
+
+
+.sim-res-buttons{
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.simulate-button {
+  padding: 0.25rem 1.5rem;
+  font-size: .85rem;
+  color: white;
+  background-color: #00ae3d;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.simulate-button:disabled {
+  background-color: #ccc; 
+  color: #888;
+  cursor: not-allowed;
+  pointer-events: none;
+  transition: none; 
+}
+
+.restart-button {
+  padding: 0.25rem 1.5rem;
+  font-size: .85rem;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
