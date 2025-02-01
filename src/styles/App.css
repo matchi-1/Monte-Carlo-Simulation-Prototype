@@ -74,6 +74,12 @@ html, body {
 
 /*instructions*/
 
+.no-link-style {
+  text-decoration: none;  
+  color: inherit;        
+}
+
+
 .instructions-container {
   padding: 0rem .65rem 0rem .65rem;
   align-items: flex-start;
@@ -105,7 +111,6 @@ html, body {
 
 .data-inst-container p {
   font-size: 0.8rem;
-  
 }
 
 .data-inst-container h5 {
