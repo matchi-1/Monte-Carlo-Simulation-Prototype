@@ -102,11 +102,13 @@ function App() {
 
 
   const addRow = () => {
+    if (hasSimulated) return;
     setValues([...values, 0]);
     setOccurrences([...occurrences, 0]);
   };
 
   const deleteRow = () => {
+    if (hasSimulated) return;
     if (values.length > 1) {
       setValues(values.slice(0, -1));
       setOccurrences(occurrences.slice(0, -1));
