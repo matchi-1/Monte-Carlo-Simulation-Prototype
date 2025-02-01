@@ -224,3 +224,41 @@ html, body {
   padding: 0rem 0.5rem;
   box-sizing: border-box;
 }
+
+.buttons-container{
+  gap: 0.25rem;
+  align-items: flex-end;
+}
+
+.row-button{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  color: var(--text-dark-grey);
+  font-size: 0.85rem;
+  height: 1.6rem;
+  background-color: white;
+  border: 1px solid var(--cont-outline-dark-grey);
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  box-sizing: border-box;
+  width: auto;
+  cursor: pointer;
+}
+
+.row-button:hover{
+  background-color: var(--tab-fill-inactive-light-grey);
+}
+
+.row-button p{
+  margin: 0;
+}
+
+#btn-text-icon{
+  margin-right: 0.5rem;
+}
+
+#add-row-btn{
+  width: 5.5rem;
+}

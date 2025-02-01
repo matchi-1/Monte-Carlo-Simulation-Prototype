@@ -85,8 +85,8 @@ function App() {
 
                 {/* Buttons Container */}
                 <div className="buttons-container">
-                  <button className="button">Button 1</button>
-                  <button className="button">Button 2</button>
+                  <div className="row-button" id='add-row-btn'><p id='btn-text-icon'>+</p><p>add row</p></div>
+                  <div className="row-button"><p id='btn-text-icon'>-</p><p>delete last row</p></div>
                 </div>
               </div>
 
