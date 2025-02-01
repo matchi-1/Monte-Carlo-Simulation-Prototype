@@ -122,33 +122,22 @@ function App() {
             </div>
 
             <div className='computation-body-container'>
-              <div className="hist-cat-table-container">
+              <div className="computation-table-wrapper">
                 <table className="cat-hist-table">
                   <thead>
                     <tr>
-                      <th>Cumulative Probability {unitOfValue}</th>
+                      <th>Cumulative Probability</th>
                       <th>RNI</th>
-
                     </tr>
                   </thead>
                   <tbody>
                     {values.map((value, index) => (
                       <tr key={index}>
                         <td>
-                          <input
-                            type="number"
-                            value={value}
-                            onChange={(e) => handleInputChange(index, e, 'value')}
-                            min="0"
-                          />
+                          
                         </td>
                         <td>
-                          <input
-                            type="number"
-                            value={occurrences[index]}
-                            onChange={(e) => handleInputChange(index, e, 'occurrence')}
-                            min="0"
-                          />
+                          
                         </td>
                       </tr>
                     ))}

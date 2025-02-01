@@ -118,31 +118,11 @@
   #add-row-btn{
     width: 5.5rem;
   }
-  
-  
-  /*additional text in cat-hist*/
-  .hist-cat-additional-data-container{
-    padding-right: 1rem;
-    padding-top: 1rem;
-    height: 4rem;
-    box-sizing: border-box;
-  }
-  .hist-cat-additional-data-container p, .hist-cat-additional-data-container h4{
-    margin: 0;
-  }
-  .hist-cat-additional-data-container h4{
-    color: var(--text-dark-grey);
-    font-weight: 400;
-  }
-  .hist-cat-additional-data-container p{
-    color: var(--tab-text-light-grey);
-    font-size: 0.7rem;
-    font-style: italic;
-  }
+
   
   /*table css*/
   
-  .hist-cat-table-container-table-wrapper{
+  .table-wrapper{
     max-height: 21rem; 
     overflow-y: auto; 
   }

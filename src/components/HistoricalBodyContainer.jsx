@@ -48,41 +48,39 @@ const HistoricalBodyContainer = ({
           </div>
         </div>
       </div>
-      <div className='hist-cat-table-container-table-wrapper'>
-        <div className="hist-cat-table-container">
-          <table className="cat-hist-table">
-            <thead>
-              <tr>
-                <th>Number of {unitOfValue}</th>
-                <th>Number of {unitOfOccurrence}</th>
-                <th>Probability</th>
+      <div className='table-wrapper'>
+        <table className="cat-hist-table">
+          <thead>
+            <tr>
+              <th>Number of {unitOfValue}</th>
+              <th>Number of {unitOfOccurrence}</th>
+              <th>Probability</th>
+            </tr>
+          </thead>
+          <tbody>
+            {values.map((value, index) => (
+              <tr key={index}>
+                <td>
+                  <input
+                    type="number"
+                    value={value}
+                    onChange={(e) => handleInputChange(index, e, 'value')}
+                    min="0"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    value={occurrences[index]}
+                    onChange={(e) => handleInputChange(index, e, 'occurrence')}
+                    min="0"
+                  />
+                </td>
+                <td>{probabilities[index]?.toFixed(3) || '0.000'}</td>
               </tr>
-            </thead>
-            <tbody>
-              {values.map((value, index) => (
-                <tr key={index}>
-                  <td>
-                    <input
-                      type="number"
-                      value={value}
-                      onChange={(e) => handleInputChange(index, e, 'value')}
-                      min="0"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      value={occurrences[index]}
-                      onChange={(e) => handleInputChange(index, e, 'occurrence')}
-                      min="0"
-                    />
-                  </td>
-                  <td>{probabilities[index]?.toFixed(3) || '0.000'}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
       </div>
       <div className="hist-cat-additional-data-container">
         <h4>Total number of {unitOfOccurrence}: {occurrences.reduce((acc, val) => acc + val, 0)}</h4>

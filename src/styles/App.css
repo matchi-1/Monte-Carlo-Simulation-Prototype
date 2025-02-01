@@ -7,6 +7,7 @@
   --text-dark-grey: #6F6F6F;
   --text-light-dark-grey: #A0A0A0;
   --fill-light-grey: #E2E2E2;
+  --fill-dark-grey: #cbcbcb;
   --cont-outline-dark-grey: #868686;
   --tab-text-dark-grey: #828282;
   --tab-text-light-grey: #A0A0A0;
@@ -118,13 +119,11 @@ html, body {
   grid-template-columns: 1.85fr 1fr 1.5fr; /* Controls column proportions */
   width: 100%;
   height: 100%;
-  border: 1px solid blue;
 }
 
 .hist-cat-container,
 .computations-container,
 .simulations-container {
-  border: 1px solid red;
   display: flex;
   flex-direction: column;
 }
@@ -148,11 +147,6 @@ html, body {
   margin-bottom: 0.25rem;
 }
 
-.computation-body-container{
-  
-}
-
-
  /*additional text in cat-hist*/
  .hist-cat-additional-data-container{
   padding-right: 1rem;
@@ -171,4 +165,27 @@ html, body {
   color: var(--tab-text-light-grey);
   font-size: 0.7rem;
   font-style: italic;
+}
+
+
+/* computations section 
+
+.computations-container{
+  
+}*/
+
+.computation-body-container{
+  background-color: var(--fill-dark-grey);
+  display: flex;
+  margin: -1px;
+  z-index: 0;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  border-top: 1px solid var(--cont-outline-dark-grey);
+  border-bottom: 1px solid var(--cont-outline-dark-grey);
+  box-sizing: border-box;
+}
+.computation-table-wrapper{
+  margin-top: 6rem;
 }
