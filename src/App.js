@@ -31,12 +31,23 @@ function App() {
         </div>
         <div className='monte-carlo-sim-container'>
           <div className='hist-cat-container'>
-          
+            <div className='cont-header-container'>
+
+            </div>
+            <div className='hist-cat-data-container'>
+
+            </div>
           </div>
           <div className='computations-container'>
+            <div className='cont-header-container'>
+              <p>Computations</p>
+            </div>
           
           </div>
           <div className='simulations-container'>
+            <div className='cont-header-container'>
+              <p>Simulations</p>
+            </div>
           
           </div>
         </div>

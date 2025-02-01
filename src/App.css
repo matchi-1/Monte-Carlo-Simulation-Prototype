@@ -3,6 +3,7 @@
 :root {
   --light-grey: #9B9B9B;
   --text-dark-grey: #6F6F6F;
+  --text-light-dark-grey: #A0A0A0;
 }
 
 html, body {
@@ -66,7 +67,7 @@ html, body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
+  margin-right: 1rem;
 }
 
 .instructions-container p {
@@ -93,4 +94,40 @@ html, body {
   color: var(--text-dark-grey);
   padding: 0;
   margin: 0;
+}
+
+.monte-carlo-sim-container {
+  display: grid;
+  grid-template-columns: 1.85fr 1fr 1.5fr; /* Controls column proportions */
+  width: 100%;
+  height: 100%;
+  border: 1px solid blue;
+}
+
+.hist-cat-container,
+.computations-container,
+.simulations-container {
+  border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+}
+
+.hist-cat-container { border-color: red; }
+.computations-container { border-color: green; }
+.simulations-container { border-color: grey; }
+
+.cont-header-container{
+  display: flex;
+  flex-direction: row;
+  color: var(--text-light-dark-grey);
+  font-weight: 400;
+  border: 1px solid black;
+  height: 2rem;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+.cont-header-container p{
+  margin-top: 0;
+  margin-bottom: 0.25rem;
 }
