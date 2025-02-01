@@ -101,7 +101,7 @@
     width: auto;
     cursor: pointer;
     margin-right: 1rem;
-    
+
   }
   
   .row-button:hover{
@@ -118,8 +118,11 @@
   
   #add-row-btn{
     width: 5.5rem;
+    background-color: #cdfebe;
   }
-
+  #delete-row-btn{
+    background-color: #ffe5d9;
+  }
   
   /*table css*/
   

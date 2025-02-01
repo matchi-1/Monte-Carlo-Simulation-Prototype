@@ -43,7 +43,7 @@ const HistoricalBodyContainer = ({
           <div className="row-button" id='add-row-btn' onClick={addRow}>
             <p id='btn-text-icon'>+</p><p>add row</p>
           </div>
-          <div className="row-button" onClick={deleteRow}>
+          <div className="row-button" id='delete-row-btn' onClick={deleteRow}>
             <p id='btn-text-icon'>-</p><p>delete last row</p>
           </div>
         </div>
