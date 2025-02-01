@@ -138,7 +138,6 @@ html, body {
   flex-direction: row;
   color: var(--text-light-dark-grey);
   font-weight: 400;
-  
   height: 2rem;
   align-items: flex-end;
   justify-content: flex-start;
@@ -223,6 +222,7 @@ html, body {
   border: 1px solid var(--cont-outline-dark-grey);
   padding: 0rem 0.5rem;
   box-sizing: border-box;
+  color: var(--text-dark-grey);
 }
 
 .buttons-container{
@@ -262,3 +262,26 @@ html, body {
 #add-row-btn{
   width: 5.5rem;
 }
+
+/*table css*/
+
+
+
+/*additional text in cat-hist*/
+.hist-cat-additional-data-container{
+  padding-right: 1rem;
+  height: 2rem;
+}
+.hist-cat-additional-data-container p, .hist-cat-additional-data-container h4{
+  margin: 0;
+}
+.hist-cat-additional-data-container h4{
+  color: var(--text-dark-grey);
+  font-weight: 400;
+}
+.hist-cat-additional-data-container p{
+  color: var(--tab-text-light-grey);
+  font-size: 0.7rem;
+  font-style: italic;
+}
+
