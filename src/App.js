@@ -383,7 +383,7 @@ function App() {
                </table>
               </div>
               
-              <h4>Average number of {unitOfOccurrence}: {averagePredictedValue.toFixed(2)}</h4>
+              <h4>Average number of {unitOfValue}: {averagePredictedValue.toFixed(2)}</h4>
             </div>
           </div>
         </div>
