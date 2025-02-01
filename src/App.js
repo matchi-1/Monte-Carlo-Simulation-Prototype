@@ -21,10 +21,10 @@ function App() {
         <div className='instructions-container'>
           <p>How to use?</p>
           <div className='data-inst-container'>
-            
+            <h5>Historical Data</h5>
           </div>
           <div className='data-inst-container'>
-            
+            <h5>Categorical Data</h5>
           </div>
         </div>
         <div className='monte-carlo-sim-container'>

@@ -57,17 +57,35 @@ html, body {
 }
 
 .instructions-container {
-  padding: 0rem 1rem 1rem 1rem;
-  align-items: center;
+  padding: 0rem .65rem 1rem .65rem;
+  align-items: flex-start;
   justify-content: flex-start;
   border: 1px solid var(--light-grey);
   border-radius: 10px;
-  width: 11.5rem;
+  width: 12rem;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
 }
 
 .instructions-container p {
   font-weight: 500;
   font-size: 0.95rem;
   color: var(--text-dark-grey);
+}
+
+.data-inst-container{
+  border: 1px solid var(--light-grey);
+  padding: 0.5rem;
+  width: 100%;
+  flex-grow: 1;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+}
+
+.data-inst-container h5 {
+  color: var(--text-dark-grey);
+  padding: 0;
+  margin: 0;
 }
